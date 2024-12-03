@@ -31,11 +31,11 @@ class DetectLanes:
     def forward(self, img):
         src_img = np.copy(img)
         img = self.calibrate(img)
-        # img = self.threshold(img)
-        # img = self.perspective_transform(img)
-        # img = self.detect_lanes(img)
-        # img = self.perspective_transform.backward(img)
-        return img
+        img = self.threshold(img)
+        img = self.perspective_transform(img)
+        img = self.detect_lanes(img)
+        img = self.perspective_transform.backward(img)
+
         return cv2.addWeighted(src_img, 1, img, 0.6, 0)
     
     def process_image(self, input_path, output_path):
@@ -43,8 +43,7 @@ class DetectLanes:
         if img.shape != (1280, 720):
             img = cv2.resize(img, (1280, 720))
         out_img = self.forward(img)
-        res_img = cv2.resize(out_img, (960, 540))
-        cv2.imwrite(output_path, res_img)
+        cv2.imwrite(output_path, out_img)
     
     def process_video(self, input_path, output_path):
         cap = cv2.VideoCapture(input_path)
