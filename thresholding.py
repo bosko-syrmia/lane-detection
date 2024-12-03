@@ -2,13 +2,26 @@ import cv2
 import numpy as np
 
 def binary_threshold(img):
-    sobel_kernel = 5
+    sobel_kernel = 9
     mag_thresh = (10, 255)
     sat_thresh = (170, 255)
 
-    hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
-    gray = hls[:, :, 1]
+    hls = cv2.cvtColor(img, cv2.COLOR_BGR2HLS)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     s_channel = hls[:, :, 2]
+
+    yellow_lower = np.array([15, 100, 100])
+    yellow_upper = np.array([22, 255, 255])
+    yellow_mask = cv2.inRange(hsv, yellow_lower, yellow_upper)
+    yellow_filtered = cv2.bitwise_and(img, img, mask=yellow_mask)
+
+    white_lower = np.array([0, 0, 200])
+    white_upper = np.array([180, 30, 255])
+    white_mask = cv2.inRange(hsv, white_lower, white_upper)
+    white_filtered = cv2.bitwise_and(img, img, mask=white_mask)
+
+    white_and_yellow = cv2.bitwise_or(yellow_filtered, white_filtered)
+    gray = cv2.cvtColor(white_and_yellow, cv2.COLOR_BGR2GRAY)
 
     sobel_binary = np.zeros(shape=gray.shape, dtype=bool)
     s_binary = sobel_binary

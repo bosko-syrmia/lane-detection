@@ -1,10 +1,5 @@
-## Writeup Template
 
-### You use this file as a template for your writeup.
-
----
-
-**Lane Finding Project**
+# **Lane Finding Project**
 
 The goals / steps of this project are the following:
 
@@ -28,28 +23,26 @@ The goals / steps of this project are the following:
 [video1]: ./project_video.mp4 "Video"
 [image1uncal]: ./camera_cal/calibration1.jpg "Uncalibrated"
 [image1cal]: ./calibrated_images/calibration1.jpg "Calibrated"
+[solidWhiteDist]: ./test_images/solidWhiteRight.jpg "Distorted"
+[solidWhiteUndist]: ./output_images/solidWhiteRight.jpg "Undistorted"
 
 
 ---
 
-### Writeup / README
-
-#### 1. Provide a Writeup that includes all the rubric points and how you addressed each one.
-
-You're reading it!
-
 ### Camera Calibration
 
-#### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
+The camera calibration process was implemented using a chessboard pattern image examples and OpenCV's calibration functions: [cv2.findChessboardCorners](https://docs.opencv.org/2.4/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html#findchessboardcorners) and [cv2.calibrateCamera](https://docs.opencv.org/2.4/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html#calibratecamera) . The process removes distortion from images, which is crucial for accurate lane detection.
 
-![image1uncal]
-![image1cal]
+
+| Before  | After |
+| ------------- | ------------- |
+| ![image1uncal]   | ![image1cal]  |
 
 ### Pipeline (single images)
 
-#### 1. Provide an example of a distortion-corrected image.
-
-TODO: Add your text here!!!
+| Distorted  | Undistorted |
+| ------------- | ------------- |
+| ![solidWhiteDist]   | ![solidWhiteUndist]  |
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
